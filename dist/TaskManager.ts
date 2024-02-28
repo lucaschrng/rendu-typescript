@@ -1,4 +1,4 @@
-import { Task } from './Task';
+import { Task } from './Task.js';
 
 interface ITaskManager {
   addTask(task: Task): void;

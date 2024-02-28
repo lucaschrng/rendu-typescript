@@ -1,5 +1,5 @@
-import {Task} from './Task';
-import {TaskManager} from './TaskManager';
+import {Task} from './Task.js';
+import {TaskManager} from './TaskManager.js';
 
 // Get tasks from local storage
 

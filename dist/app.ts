@@ -1,4 +1,12 @@
-import { editTask, deleteTask, updateTask, cancelEdit, displayTasks, getTasks } from './domFunctions.js';
+import {
+  editTask,
+  deleteTask,
+  updateTask,
+  cancelEdit,
+  displayTasks,
+  getTasks,
+  displayCategories
+} from './domFunctions.js';
 
 (window as any).editTask = editTask;
 (window as any).deleteTask = deleteTask;
@@ -6,3 +14,4 @@ import { editTask, deleteTask, updateTask, cancelEdit, displayTasks, getTasks } 
 (window as any).cancelEdit = cancelEdit;
 
 displayTasks(getTasks());
+displayCategories();

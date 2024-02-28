@@ -30,6 +30,12 @@
                     <option value="medium" selected>Moyenne</option>
                     <option value="high">Haute</option>
                 </select>
+                <input type="text" id="taskCategory" placeholder="Catégorie de la tâche">
+                <div id="taskCategoriesWrapper">
+                    <p>Catégories existantes</p>
+                    <div id="taskCategories">
+                    </div>
+                </div>
                 <button type="submit">Ajouter Tâche</button>
             </form>
         </section>
@@ -46,6 +52,11 @@
 
                 <label for="filterDate">Filtrer par Date :</label>
                 <input type="date" id="filterDate">
+
+                <label for="filterCategory">Filtrer par Catégorie :</label>
+                <select id="filterCategory">
+                    <option value="all">Toutes</option>
+                </select>
 
                 <button type="submit" id="applyFilter">Appliquer Filtre</button>
             </form>

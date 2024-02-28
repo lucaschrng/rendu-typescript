@@ -1,3 +1,4 @@
+import { CategoryManager } from "./CategoryManager.js";
 export class TaskManager {
     _tasks;
     constructor(_tasks) {
@@ -16,16 +17,49 @@ export class TaskManager {
         if (task.dueDate === '') {
             throw new Error('Due date is required');
         }
+        if (task.category) {
+            const categoryManager = new CategoryManager(JSON.parse(localStorage.getItem('categories') || "[]"));
+            const categoryId = categoryManager.categories.find((c) => c.name === task.category)?.id;
+            categoryManager.addTaskToCategory(categoryId === -1 ? null : categoryId, task);
+            localStorage.setItem('categories', JSON.stringify(categoryManager.categories));
+        }
         this._tasks.push(task);
     }
-    editTask(index, task) {
+    editTask(id, task) {
+        const index = this._tasks.findIndex((t) => t.id === id);
+        if (task.category && task.category !== this._tasks[index].category) {
+            if (!localStorage.getItem('categories')) {
+                localStorage.setItem('categories', '[]');
+            }
+            const categoryManager = new CategoryManager(JSON.parse(localStorage.getItem('categories') || "[]"));
+            categoryManager.categories.forEach((category) => {
+                category.tasks = category.tasks.filter((t) => t.id !== task.id);
+                categoryManager.editCategory(categoryManager.categories.indexOf(category), category);
+            });
+            categoryManager.addTaskToCategory(task.id, task);
+            localStorage.setItem('categories', JSON.stringify(categoryManager.categories));
+        }
         this._tasks[index] = task;
     }
-    deleteTask(index) {
+    deleteTask(id) {
+        const categoryManager = new CategoryManager(JSON.parse(localStorage.getItem('categories') || "[]"));
+        categoryManager.categories.forEach((category) => {
+            category.tasks = category.tasks.filter((t) => t.id !== id);
+            categoryManager.editCategory(category.id, category);
+        });
+        localStorage.setItem('categories', JSON.stringify(categoryManager.categories));
+        const index = this._tasks.findIndex((t) => t.id === id);
         this._tasks.splice(index, 1);
     }
-    filterTasks(priority, dueDate) {
+    filterTasks(priority, dueDate, categoryId) {
         let filteredTasks = this._tasks;
+        if (categoryId) {
+            const categoryManager = new CategoryManager(JSON.parse(localStorage.getItem('categories') || "[]"));
+            const categoryIndex = categoryManager.categories.findIndex((c) => c.id === categoryId);
+            if (categoryIndex !== -1) {
+                filteredTasks = categoryManager.categories[categoryIndex].tasks;
+            }
+        }
         if (priority !== 'all') {
             filteredTasks = filteredTasks.filter((task) => {
                 return task.priority === priority;

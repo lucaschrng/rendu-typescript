@@ -12,6 +12,10 @@ header, footer {
     padding: 1rem 0;
 }
 
+header h1 {
+    color: white;
+}
+
 main {
     padding: 20px;
 }
@@ -24,7 +28,8 @@ h1, h2 {
     margin-bottom: 20px;
 }
 
-#taskForm input, #taskForm select, #taskForm textarea {
+#taskForm input, #taskForm select, #taskForm textarea,
+#editTaskForm input, #editTaskForm select, #editTaskForm textarea {
     display: block;
     width: 100%;
     padding: 10px;

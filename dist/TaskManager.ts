@@ -47,6 +47,20 @@ export class TaskManager implements ITaskManager {
   }
 
   editTask(id: number, task: Task): void {
+    // Data validation
+    if (task.title === '') {
+      throw new Error('Title is required');
+    }
+    if (task.description === '') {
+      throw new Error('Description is required');
+    }
+    if (task.dueDate === '') {
+      throw new Error('Due date is required');
+    }
+    if (task.priority !== 'low' && task.priority !== 'medium' && task.priority !== 'high') {
+      throw new Error('Invalid priority');
+    }
+
     const index = this._tasks.findIndex((t) => t.id === id);
 
     if (task.category && task.category !== this._tasks[index].category) {

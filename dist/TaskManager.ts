@@ -29,6 +29,9 @@ export class TaskManager implements ITaskManager {
     if (task.dueDate === '') {
       throw new Error('Due date is required');
     }
+    if (task.priority !== 'low' && task.priority !== 'medium' && task.priority !== 'high') {
+      throw new Error('Invalid priority');
+    }
 
     if (task.category) {
       const categoryManager = new CategoryManager(JSON.parse(localStorage.getItem('categories') || "[]"));

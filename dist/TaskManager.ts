@@ -20,6 +20,7 @@ export class TaskManager implements ITaskManager {
   }
 
   addTask(task: Task): void {
+    // Data validation
     if (task.title === '') {
       throw new Error('Title is required');
     }

@@ -17,6 +17,7 @@ export class CategoryManager implements ICategoryManager {
   }
 
   addCategory(category: Category): void {
+    // Data validation
     if (category.name === '') {
       throw new Error('Name is required');
     }
@@ -25,7 +26,6 @@ export class CategoryManager implements ICategoryManager {
 
   editCategory(id: number, category: Category): void {
     const index = this._categories.findIndex((c) => c.id === id);
-    console.log(category)
     this._categories[index] = category;
   }
 

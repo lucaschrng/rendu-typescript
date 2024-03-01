@@ -21,15 +21,4 @@ export class CategoryManager {
         const index = this._categories.findIndex((c) => c.id === id);
         this._categories.splice(index, 1);
     }
-    addTaskToCategory(categoryId, task) {
-        const category = this._categories.find((category) => category.id === categoryId);
-        console.log(category);
-        if (!category) {
-            this.addCategory({ id: Math.floor(Math.random() * 999999999999999), name: task.category, tasks: [task] });
-        }
-        else {
-            const categoryIndex = this._categories.findIndex((category) => category.id === categoryId);
-            this._categories[categoryIndex].tasks.push(task);
-        }
-    }
 }

@@ -1,5 +1,4 @@
 import {Category} from "./Category.js";
-import {Task} from "./Task.js";
 
 interface ICategoryManager {
   addCategory(category: Category): void;
@@ -7,8 +6,6 @@ interface ICategoryManager {
   editCategory(id: number, category: Category): void;
 
   deleteCategory(id: number): void;
-
-  addTaskToCategory(categoryId: number, task: Task): void;
 }
 
 export class CategoryManager implements ICategoryManager {
@@ -35,16 +32,5 @@ export class CategoryManager implements ICategoryManager {
   deleteCategory(id: number): void {
     const index = this._categories.findIndex((c) => c.id === id);
     this._categories.splice(index, 1);
-  }
-
-  addTaskToCategory(categoryId: number | null, task: Task): void {
-    const category = this._categories.find((category: Category) => category.id === categoryId);
-    console.log(category)
-    if (!category) {
-      this.addCategory({id: Math.floor(Math.random() * 999999999999999), name: task.category, tasks: [task]})
-    } else {
-      const categoryIndex = this._categories.findIndex((category: Category) => category.id === categoryId);
-      this._categories[categoryIndex].tasks.push(task);
-    }
   }
 }
